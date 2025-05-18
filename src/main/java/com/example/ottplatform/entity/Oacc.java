@@ -1,5 +1,20 @@
 package com.example.ottplatform.entity;
 
-public class Oacc {
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Table(name = "oacc")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Oacc {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String accountNumber;
+    private String accountType;
+    private String status;
 }
