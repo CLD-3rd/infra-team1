@@ -40,7 +40,7 @@ public class UserAccountController {
 
         if (user != null) {
             // 로그인 성공하면 /ott/{userno}로 이동하게 만들어야 함
-            return new ModelAndView("redirect:/ott");
+            return new ModelAndView("redirect:/");
         } else {
             // 로그인 실패하면 다시 로그인 페이지로
             ModelAndView mav = new ModelAndView("login");

@@ -23,7 +23,7 @@ public class OttAccount {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "oaccno")
+	@Column(name = "oaccno") 
 	private Long oaccNo;
 	
 	@ManyToOne

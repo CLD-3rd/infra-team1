@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link rel="stylesheet" href="/css/style.css">
   <meta charset="UTF-8">
   <title>OTT 계정 공유 플랫폼</title>
 </head>
@@ -18,10 +19,26 @@
   </div>
 
   <div th:unless="${session.user != null}">
-    <a href="/login">로그인</a>
-    <a href="/signup">회원가입</a>
+    <div class="form-container">
+      <h2>로그인</h2>
+      <input type="text" placeholder="아이디 입력">
+      <input type="password" placeholder="비밀번호 입력">
+      <button type="submit">로그인</button>
+    </div>
+    <!-- navigation bar : 김재신 -->
+    <div class="navigation-pill-list">
+      <div class="navigation-pill-list2">
+        <div class="navigation-pill">
+    <a href="/login">로그인</a> </div>
+        <div class="navigation-pill">
+    <a href="/signup">회원가입</a> </div>
+    <div class="navigation-pill">
     <a href="#" onclick="alert('로그인이 필요한 서비스입니다.'); return false;">플랫폼 구독</a>
+  </div>
+    <div class="navigation-pill">
     <a href="#" onclick="alert('로그인이 필요한 서비스입니다.'); return false;">구독정보</a>
+    </div>  
+  </div>
   </div>
 
 </body>

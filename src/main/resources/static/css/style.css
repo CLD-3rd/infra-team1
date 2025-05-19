@@ -1,0 +1,129 @@
+/* ===== 기본 리셋 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  /* ===== 전체 배경 ===== */
+  body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* ===== 헤더 영역 ===== */
+  .header {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* ===== 버튼 공통 스타일 ===== */
+  button {
+    background-color: #0066ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #004dcc;
+  }
+  
+  button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  /* ===== 입력창 ===== */
+  input[type="text"], input[type="password"], input[type="email"] {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  /* ===== 폼 박스 ===== */
+  .form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ===== 안내 텍스트 ===== */
+  .notice {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  /* ===== 메뉴 링크 ===== */
+  .nav-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: #222;
+    padding: 10px;
+  }
+  
+  .nav-bar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav-bar a:hover {
+    text-decoration: underline;
+  }
+
+  .navigation-pill {
+    border-radius: var(--var-sds-size-radius-200, 8px);
+    padding: var(--var-sds-size-space-200, 8px);
+    display: flex;
+    flex-direction: row;
+    gap: var(--var-sds-size-space-200, 8px);
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .navigation-pill-list {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .navigation-pill-list2 {
+    display: flex;
+    flex-direction: row;
+    gap: var(--var-sds-size-space-200, 8px);
+    row-gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    width: 1200px;
+    position: relative;
+  }
+
+  

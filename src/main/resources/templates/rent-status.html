@@ -3,17 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <title>구독 상태</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .info {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .subscription-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .subscription-card p {
+      margin: 5px 0;
+    }
+
+    .cancel-button {
+      margin-top: 10px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cancel-button:hover {
+      background-color: #c0392b;
+    }
+  </style>
 </head>
 <body>
-  <h1>구독 상태 확인</h1>
-  <p th:text="'현재 로그인된 사용자: ' + ${session.user.uid}"></p>
-  <p>서비스 사용을 위해 프로필을 생성해주세요.</p>
-  <div th:each="rent : ${rents}">
-    <p th:text="'OTT 계정: ' + ${rent.ottName} + ', 상태: ' + ${rent.status}"></p>
+
+  <h1>내 구독 현황</h1>
+
+  <div class="info">
+    <p th:text="'현재 로그인된 사용자 번호: ' + ${userno}"></p>
+    <p>서비스 사용을 위해 프로필을 생성해주세요.</p>
+  </div>
+
+  <!-- 구독 취소 성공 시 알림 -->
+  <div th:if="${cancelSuccess}">
+    <script>alert('구독이 해지되었습니다.');</script>
+  </div>
+
+  <!-- 구독 목록 반복 출력 -->
+  <div th:each="rent : ${rentList}" class="subscription-card">
+    <p><strong>OTT 계정 번호:</strong> <span th:text="${rent.oaccNo}">계정번호</span></p>
+    <p><strong>시작일:</strong> <span th:text="${rent.rstart}">시작일</span></p>
+    <p><strong>만료일:</strong> <span th:text="${rent.rexpiry}">만료일</span></p>
+
+    <!-- 구독 취소 폼 -->
     <form th:action="@{/rent/cancel}" method="post">
-      <input type="hidden" th:name="rentId" th:value="${rent.id}" />
-      <button type="submit">구독취소</button>
+      <input type="hidden" name="rentNo" th:value="${rent.rentNo}" />
+      <input type="hidden" name="userno" th:value="${userno}" />
+      <button type="submit" class="cancel-button">구독 취소</button>
     </form>
   </div>
+
 </body>
 </html>
