@@ -15,9 +15,10 @@
       color: #333;
     }
 
-    .info {
+    h3 {
       text-align: center;
-      margin-bottom: 20px;
+      color: #333;
+      margin-bottom: 50px;
     }
 
     .subscription-card {
@@ -49,28 +50,23 @@
   </style>
 </head>
 <body>
-
   <h1>내 구독 현황</h1>
+  <h3>현재 사용자: <span th:text="${uid}">알 수 없음</span></h3>
 
-  <div class="info">
-    <p th:text="'현재 로그인된 사용자 번호: ' + ${userno}"></p>
-    <p>서비스 사용을 위해 프로필을 생성해주세요.</p>
-  </div>
 
-  <!-- 구독 취소 성공 시 알림 -->
-  <div th:if="${cancelSuccess}">
+
+	<div th:if="${cancelSuccess}">
     <script>alert('구독이 해지되었습니다.');</script>
-  </div>
+  	</div>
+  
+  <!-- 서버에서 rentList만 내려줌 -->
+  <div th:each="rent : ${rentList}" class="subscription-card" th:attr="data-oaccno=${rent.oaccNo}">
+    <p><strong>플랫폼: <span class="otype"></span></strong></p>
+    <p>계정 ID: <span class="email"></span></p>
+    <p>계정 비밀번호: <span class="password"></span></p>
+    <p>시작일: <span th:text="${rent.rstart}"></span></p>
+    <p>만료일: <span th:text="${rent.rexpiry}"></span></p>
 
-  <!-- 구독 목록 반복 출력 -->
-  <div th:each="rent : ${rentList}" class="subscription-card">
-	<p><strong><span th:text="${rent.oaccNo.otype}"></span></strong></p>
-    <p><strong>OTT 계정 ID:</strong> <span th:text="${rent.oaccNo.email}"></span></p>
-    <p><strong>OTT 계정 PW:</strong> <span th:text="${rent.oaccNo.password}"></span></p>
-    <p><strong>시작일:</strong> <span th:text="${rent.rstart}"></span></p>
-    <p><strong>만료일:</strong> <span th:text="${rent.rexpiry}"></span></p>
-
-    <!-- 구독 취소 폼 -->
     <form th:action="@{/rent/cancel}" method="post">
       <input type="hidden" name="rentNo" th:value="${rent.rentNo}" />
       <input type="hidden" name="userno" th:value="${userno}" />
@@ -78,5 +74,44 @@
     </form>
   </div>
 
+  <!--  OTT 계정 정보 + 플랫폼명 매핑 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const [accRes, typeRes] = await Promise.all([
+          fetch('/ott-acc'),      // OTT 계정 정보
+          fetch('/api/ott')           // 플랫폼 번호 → 이름 매핑
+        ]);
+
+        const ottAccounts = await accRes.json(); // [{ oaccNo, ottNo, email, password }]
+        const ottTypes = await typeRes.json();   // [{ ottNo, otype }]
+
+        const ottTypeMap = {};
+        ottTypes.forEach(type => {
+          ottTypeMap[type.ottNo] = type.otype;
+        });
+
+        const cardList = document.querySelectorAll('.subscription-card');
+
+        cardList.forEach(card => {
+          const oaccNo = card.getAttribute('data-oaccno');
+          const matched = ottAccounts.find(acc => acc.oaccNo == oaccNo);
+
+          if (matched) {
+            card.querySelector('.email').textContent = matched.email;
+            card.querySelector('.password').textContent = matched.password;
+            card.querySelector('.otype').textContent = ottTypeMap[matched.ottNo] || '알 수 없음';
+          } else {
+            card.querySelector('.email').textContent = '정보 없음';
+            card.querySelector('.password').textContent = '정보 없음';
+            card.querySelector('.otype').textContent = '정보 없음';
+          }
+        });
+      } catch (err) {
+        console.error('데이터 불러오기 실패:', err);
+      }
+    });
+  </script>
 </body>
 </html>
+
