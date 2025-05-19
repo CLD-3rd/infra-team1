@@ -1,6 +1,5 @@
 package com.team1.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +20,6 @@ public class UserAccount {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "userno")
 	private Long userNo;
 	
 	private String uid;
