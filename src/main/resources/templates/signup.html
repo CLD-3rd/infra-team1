@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <script>
+    function validatePassword() {
+      var pw = document.getElementById("pw").value;
+      var pwCheck = document.getElementById("pwCheck").value;
+      if (pw !== pwCheck) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <h1>회원가입</h1>
+  <form th:action="@{/signup}" method="post" onsubmit="return validatePassword()">
+    <label>ID: <input type="text" name="uid" /></label><br />
+    <label>PW: <input type="password" name="upw" id="pw" /></label><br />
+    <label>PW 확인: <input type="password" id="pwCheck" /></label><br />
+    <label>Email: <input type="email" name="email" /></label><br />
+    <button type="submit">가입하기</button>
+  </form>
+</body>
+</html>
