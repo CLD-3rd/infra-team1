@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team1.dto.OttPlatformDto;
 import com.team1.entity.OttAccount;
 import com.team1.entity.OttPlatform;
 import com.team1.entity.Rental;
@@ -95,4 +98,15 @@ public class OttPlatformController {
         redirectAttributes.addFlashAttribute("subscribeSuccess", true);
         return "redirect:/rent/" + user.getUserNo();
     }
+    
+    // JSON 형식으로 OTT 플랫폼 목록을 내려주는 API
+    @GetMapping("/api/ott")
+    @ResponseBody	// 리턴값이 View 이름이 아니라 JSON으로 응답
+    public List<OttPlatformDto> getOttJsonList() {
+        List<OttPlatform> platforms = ottPlatformRepository.findAll();
+        return platforms.stream()
+                .map(p -> new OttPlatformDto(p.getOttNo().intValue(), p.getOtype()))
+                .collect(Collectors.toList());
+    }
+
 }
