@@ -17,4 +17,8 @@ public class UserAccountService {
 	
 	private final UserAccountRepository userAccountRepository;
 
+    public UserAccount authenticate(String uid, String upw) {
+        return userAccountRepository.findByUidAndUpw(uid, upw);
+    }
+
 }
