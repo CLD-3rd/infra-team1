@@ -32,15 +32,15 @@ public class UserAccountController {
     // 로그인 시도 - 원서희
     @PostMapping("/login")
     public ModelAndView login(@RequestParam String uid, @RequestParam String upw) {
-//        System.out.println("uid: " + uid);
-//        System.out.println("upw: " + upw);
+        System.out.println("uid: " + uid);
+        System.out.println("upw: " + upw);
         
         // userService.authenticate는 로그인 인증 함수!
         UserAccount user = userAccountService.authenticate(uid, upw);
 
         if (user != null) {
             // 로그인 성공하면 /ott/{userno}로 이동하게 만들어야 함
-            return new ModelAndView("redirect:/ott");
+            return new ModelAndView("redirect:/");
         } else {
             // 로그인 실패하면 다시 로그인 페이지로
             ModelAndView mav = new ModelAndView("login");
@@ -48,5 +48,7 @@ public class UserAccountController {
             return mav;
         }
     }
+    
+    
     
 }
