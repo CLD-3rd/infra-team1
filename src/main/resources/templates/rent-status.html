@@ -53,7 +53,10 @@
   <h1>내 구독 현황</h1>
   <h3>현재 사용자: <span th:text="${uid}">알 수 없음</span></h3>
 
-
+	<!-- 구독 완료 알림 -->
+    <div th:if="${subscribeSuccess}">
+      <script>alert('신청이 완료되었습니다.');</script>
+    </div>
 
 	<div th:if="${cancelSuccess}">
     <script>alert('구독이 해지되었습니다.');</script>
