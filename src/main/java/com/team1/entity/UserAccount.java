@@ -27,5 +27,5 @@ public class UserAccount {
 	private String uid;
 	private String upw;
 	private String role;
-
+	
 }

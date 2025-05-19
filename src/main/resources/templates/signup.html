@@ -18,11 +18,14 @@
 <body>
   <h1>회원가입</h1>
   <form th:action="@{/signup}" method="post" onsubmit="return validatePassword()">
+    <!--<label>이름: <input type="text" name="email" /></label><br />-->
     <label>ID: <input type="text" name="uid" /></label><br />
     <label>PW: <input type="password" name="upw" id="pw" /></label><br />
     <label>PW 확인: <input type="password" id="pwCheck" /></label><br />
-    <label>Email: <input type="email" name="email" /></label><br />
     <button type="submit">가입하기</button>
   </form>
+<script th:if="${errorMessage != null}">
+    alert('[[${errorMessage}]]');
+</script>
 </body>
 </html>
