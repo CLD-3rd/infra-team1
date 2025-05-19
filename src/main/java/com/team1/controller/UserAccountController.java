@@ -12,6 +12,7 @@ import com.team1.entity.UserAccount;
 import com.team1.repository.UserAccountRepository;
 import com.team1.service.UserAccountService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -21,7 +22,7 @@ public class UserAccountController {
 	
 	private final UserAccountService userAccountService;
 	
-	@GetMapping("/")
+	@GetMapping({"/","/{userno}"})
 	public String homePage() {
 	    return "index"; // templates/index.html
 	}
@@ -33,16 +34,28 @@ public class UserAccountController {
     }
     // 로그인 시도 - 원서희
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String uid, @RequestParam String upw) {
-//        System.out.println("uid: " + uid);
-//        System.out.println("upw: " + upw);
-        
+//    public ModelAndView login(@RequestParam String uid, @RequestParam String upw) {
+//        UserAccount user = userAccountService.authenticate(uid, upw);
+//        if (user != null) {
+//            return new ModelAndView("redirect:/");
+//        } else {
+//            ModelAndView mav = new ModelAndView("login");
+//            mav.addObject("error", "아이디 또는 비밀번호가 틀렸습니다.");
+//            return mav;
+//        }
+//    }
+    // 로그인 시도 로직 + 세션 기능 추가
+    public ModelAndView login(@RequestParam String uid,
+                              @RequestParam String upw,
+                              HttpSession session) {
+
         // userService.authenticate는 로그인 인증 함수!
         UserAccount user = userAccountService.authenticate(uid, upw);
 
         if (user != null) {
+            session.setAttribute("loginUser", user);
             // 로그인 성공하면 /ott/{userno}로 이동하게 만들어야 함
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/" + user.getUserNo());
         } else {
             // 로그인 실패하면 다시 로그인 페이지로
             ModelAndView mav = new ModelAndView("login");
