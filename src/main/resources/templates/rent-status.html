@@ -64,9 +64,11 @@
 
   <!-- 구독 목록 반복 출력 -->
   <div th:each="rent : ${rentList}" class="subscription-card">
-    <p><strong>OTT 계정 번호:</strong> <span th:text="${rent.oaccNo}">계정번호</span></p>
-    <p><strong>시작일:</strong> <span th:text="${rent.rstart}">시작일</span></p>
-    <p><strong>만료일:</strong> <span th:text="${rent.rexpiry}">만료일</span></p>
+	<p><strong><span th:text="${rent.OttPlatform.otype}"></span></strong></p>
+    <p><strong>OTT 계정 ID:</strong> <span th:text="${rent.oaccNo.email}"></span></p>
+    <p><strong>OTT 계정 PW:</strong> <span th:text="${rent.oaccNo.password}"></span></p>
+    <p><strong>시작일:</strong> <span th:text="${rent.rstart}"></span></p>
+    <p><strong>만료일:</strong> <span th:text="${rent.rexpiry}"></span></p>
 
     <!-- 구독 취소 폼 -->
     <form th:action="@{/rent/cancel}" method="post">
