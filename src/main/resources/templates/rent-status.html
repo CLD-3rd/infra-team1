@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>구독 상태</title>
+</head>
+<body>
+  <h1>구독 상태 확인</h1>
+  <p th:text="'현재 로그인된 사용자: ' + ${session.user.uid}"></p>
+  <p>서비스 사용을 위해 프로필을 생성해주세요.</p>
+  <div th:each="rent : ${rents}">
+    <p th:text="'OTT 계정: ' + ${rent.ottName} + ', 상태: ' + ${rent.status}"></p>
+    <form th:action="@{/rent/cancel}" method="post">
+      <input type="hidden" th:name="rentId" th:value="${rent.id}" />
+      <button type="submit">구독취소</button>
+    </form>
+  </div>
+</body>
+</html>
