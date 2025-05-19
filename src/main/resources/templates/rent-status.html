@@ -64,7 +64,7 @@
 
   <!-- 구독 목록 반복 출력 -->
   <div th:each="rent : ${rentList}" class="subscription-card">
-	<p><strong><span th:text="${rent.OttPlatform.otype}"></span></strong></p>
+	<p><strong><span th:text="${rent.oaccNo.otype}"></span></strong></p>
     <p><strong>OTT 계정 ID:</strong> <span th:text="${rent.oaccNo.email}"></span></p>
     <p><strong>OTT 계정 PW:</strong> <span th:text="${rent.oaccNo.password}"></span></p>
     <p><strong>시작일:</strong> <span th:text="${rent.rstart}"></span></p>
