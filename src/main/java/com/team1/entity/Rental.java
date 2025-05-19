@@ -3,6 +3,7 @@ package com.team1.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class Rental {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "rentno")
 	private Long rentNo;
 	
 	@ManyToOne

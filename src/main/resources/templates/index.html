@@ -1,45 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link rel="stylesheet" href="/css/style.css">
   <meta charset="UTF-8">
-  <title>OTT 계정 공유 플랫폼</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="/css/vars.css"> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+  <title>Document</title>
 </head>
 <body>
-  <h1>OTT 계정 공유 플랫폼</h1>
+  <div class="examples-about">
+    <div class="frame">
+      <div class="navigation-pill-list">
+	<div class="navigation-pill-list2">
+  <!-- 플랫폼 구독 : 로그인 여부 상관없이 항상 보임 김재신 -->
+<div class="navigation-pill">
+  <a href="/ott-list">플랫폼 구독</a>
+</div>
 
-  <!-- 로그인 여부 확인 -->
-  <div th:if="${session.user != null}">
-    <p th:text="'환영합니다, ' + ${session.user.uid} + '님!'"></p>
-    <a href="/rent-status" th:href="@{/rent/{userno}(userno=${session.user.userno})}">구독정보</a>
-    <a href="/ott-list" th:href="@{/ott/{userno}(userno=${session.user.userno})}">플랫폼 구독</a>
+
+  <!-- 구독정보 : 로그인 상태일때만 보임. 김재신 -->
+	<div class="navigation-pill" th:if="${session.user != null}">
+  	<a th:href="@{/rent/{userno}(userno=${session.user.userno})}">구독정보</a>
+	</div>
+
+  <!-- 로그아웃 (로그인 상태 시 보임) 김재신 -->
+  <div class="navigation-pill" th:if="${session.user != null}">
     <form method="post" action="/logout">
       <button type="submit">로그아웃</button>
     </form>
   </div>
 
-  <div th:unless="${session.user != null}">
-    <div class="form-container">
-      <h2>로그인</h2>
-      <input type="text" placeholder="아이디 입력">
-      <input type="password" placeholder="비밀번호 입력">
-      <button type="submit">로그인</button>
-    </div>
-    <!-- navigation bar : 김재신 -->
-    <div class="navigation-pill-list">
-      <div class="navigation-pill-list2">
-        <div class="navigation-pill">
-    <a href="/login">로그인</a> </div>
-        <div class="navigation-pill">
-    <a href="/signup">회원가입</a> </div>
-    <div class="navigation-pill">
-    <a href="#" onclick="alert('로그인이 필요한 서비스입니다.'); return false;">플랫폼 구독</a>
+  <!-- 로그인/회원가입 (비로그인 시만 보임) 김재신 -->
+  <div class="navigation-pill" th:if="${session.user == null}">
+    <a href="/login">로그인</a>
   </div>
-    <div class="navigation-pill">
-    <a href="#" onclick="alert('로그인이 필요한 서비스입니다.'); return false;">구독정보</a>
-    </div>  
+  <div class="navigation-pill" th:if="${session.user == null}">
+    <a href="/signup">회원가입</a>
   </div>
-  </div>
+</div>
 
+      </div>
+      <div class="frame2">
+        <div class="hero-basic">
+          <div class="text-content-title">
+            <div class="title2">OTT project</div>
+            <div class="subtitle">Ott 계정공유 플랫폼</div>
+          </div>
+        </div>
+        <img class="image-1" src="/images/image-10.png" />
+        <div class="group-2">
+ <!--         <img class="rectangle-1" src="/images/rectangle-10.svg" />-->
+          <div class="ott">
+            서비스 소개 : OTT 구독을 공유해서 저렴한 비용으로 즐겨보세요 !
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="div"></div>
+  </div>
+  
 </body>
 </html>
