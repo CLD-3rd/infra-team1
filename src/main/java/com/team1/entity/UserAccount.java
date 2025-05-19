@@ -20,7 +20,7 @@ public class UserAccount {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long unserNo;
+	private Long userNo;
 	
 	private String uid;
 	private String upw;

@@ -7,4 +7,6 @@ import com.team1.entity.UserAccount;
 
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
+
+	UserAccount findByUidAndUpw(String uid, String upw);
 }
