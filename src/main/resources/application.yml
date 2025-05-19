@@ -15,3 +15,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
