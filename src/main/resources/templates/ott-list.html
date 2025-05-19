@@ -2,27 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>OTT 목록</title>
+  <title>OTT 플랫폼 목록</title>
 </head>
 <body>
-  <h1>OTT 목록</h1>
+  <h1>OTT 플랫폼 목록</h1>
+
+  <!-- 구독 완료 알림 -->
+  <div th:if="${subscribeSuccess}">
+    <script>alert('신청이 완료되었습니다.');</script>
+  </div>
+
+  <!-- userno는 로그인 시만 주입됨 -->
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var userno = /*[[${userno}]]*/ null;
+    /*]]>*/
+  </script>
+
   <div th:each="ott : ${ottList}">
-    <p th:text="${ott.name}"></p>
-    <form th:action="@{/ott/subscribe}" method="post">
-      <input type="hidden" name="ottId" th:value="${ott.id}" />
-      <button type="submit" onclick="return checkLogin();">구독</button>
+    <p><strong th:text="${ott.otype}">플랫폼명</strong></p>
+
+    <form th:if="${userno != null}"
+          th:action="@{'/ott/' + ${userno} + '/subscribe'}"
+          method="post">
+      <input type="hidden" name="ottId" th:value="${ott.ottNo}" />
+      <button type="submit">구독</button>
+    </form>
+
+    <form th:if="${userno == null}" action="/login" method="get">
+      <button type="submit">로그인 후 구독하기</button>
     </form>
   </div>
-  <script>
-    function checkLogin() {
-      var isLoggedIn = /*[[${session.user != null}]]*/ false;
-      if (!isLoggedIn) {
-        alert("로그인이 필요한 서비스입니다.");
-        window.location.href = "/login";
-        return false;
-      }
-      return true;
-    }
-  </script>
+
 </body>
 </html>
