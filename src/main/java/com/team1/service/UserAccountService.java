@@ -20,5 +20,4 @@ public class UserAccountService {
     public UserAccount authenticate(String uid, String upw) {
         return userAccountRepository.findByUidAndUpw(uid, upw);
     }
-
 }
