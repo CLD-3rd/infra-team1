@@ -21,7 +21,7 @@ public class OttPlatform {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ottno") 
+	@Column(name = "ottno")
 	private Long ottNo;
 	
 	private String otype;
