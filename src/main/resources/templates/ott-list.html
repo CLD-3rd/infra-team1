@@ -3,36 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <title>OTT 플랫폼 목록</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .platform-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .platform-card {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .platform-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      margin-right: 20px;
+      background-image: url('/images/placeholder.png'); /* 기본 이미지 경로 (없으면 회색 배경) */
+      background-size: cover;
+      background-position: center;
+    }
+
+    .platform-info {
+      flex: 1;
+    }
+
+    .platform-info p {
+      margin: 4px 0;
+    }
+
+    .subscribe-button {
+      padding: 6px 12px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .subscribe-button:hover {
+      background-color: #666;
+    }
+  </style>
 </head>
 <body>
-  <h1>OTT 플랫폼 목록</h1>
+  <h1>OTT 구독하기</h1>
 
-  <!-- 구독 완료 알림 -->
-  <div th:if="${subscribeSuccess}">
-    <script>alert('신청이 완료되었습니다.');</script>
-  </div>
-
-  <!-- userno는 로그인 시만 주입됨 -->
+  <!-- Flash 메시지 알림 -->
   <script th:inline="javascript">
     /*<![CDATA[*/
-    var userno = /*[[${userno}]]*/ null;
+    let subscribeSuccess = /*[[${subscribeSuccess}]]*/ false;
+    if (subscribeSuccess) {
+      alert("신청이 완료되었습니다.");
+    }
     /*]]>*/
   </script>
 
-  <div th:each="ott : ${ottList}">
-    <p><strong th:text="${ott.otype}">플랫폼명</strong></p>
+  <!-- 로그인한 userno JS로 전달 -->
+  <script th:inline="javascript">
+    var userno = /*[[${userno}]]*/ null;
+  </script>
 
-    <form th:if="${userno != null}"
-          th:action="@{'/ott/' + ${userno} + '/subscribe'}"
-          method="post">
-      <input type="hidden" name="ottId" th:value="${ott.ottNo}" />
-      <button type="submit">구독</button>
-    </form>
+  <div class="platform-list">
+<div class="platform-card" th:each="ott : ${ottList}">
+  <img th:src="@{'/images/' + ${#strings.toLowerCase(ott.otype)} + '.png'}"
+       alt="로고"
+       class="platform-image" />
+       
+      <div class="platform-info">
+        <p><strong th:text="${ott.otype}">플랫폼명</strong></p>
+        <p>20000원 / 4 → 5000원</p>
 
-    <form th:if="${userno == null}" action="/login" method="get">
-      <button type="submit">로그인 후 구독하기</button>
-    </form>
+        <form th:if="${userno != null}"
+              th:action="@{'/ott/' + ${userno} + '/subscribe'}"
+              method="post">
+          <input type="hidden" name="ottId" th:value="${ott.ottNo}" />
+          <button type="submit" class="subscribe-button">공유구독하기</button>
+        </form>
+
+        <form th:if="${userno == null}" action="/login" method="get">
+          <button type="submit" class="subscribe-button">로그인 후 구독하기</button>
+        </form>
+      </div>
+    </div>
   </div>
-
 </body>
 </html>
