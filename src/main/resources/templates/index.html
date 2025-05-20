@@ -40,12 +40,19 @@
 <body>
   <div class="examples-about">
     <div class="frame">
+		<!-- 상단툴바 : 김재신-->
       <div class="navigation-pill-list">
 	<div class="navigation-pill-list2">
+		  <!-- 홈 : 로그인 여부 상관없이 항상 보임 김재신 -->
+		<div class="navigation-pill">
+  <a href="/">홈</a>
+</div>
+		
   <!-- 플랫폼 구독 : 로그인 여부 상관없이 항상 보임 김재신 -->
 <div class="navigation-pill">
   <a href="/ott">플랫폼 구독</a>
 </div>
+
 
 
   <!-- 구독정보 : 로그인 상태일때만 보임. 김재신 -->
@@ -56,9 +63,7 @@
   <!-- 로그아웃 (로그인 상태 시 보임) 김재신 -->
     <!--bug fix : session.User 에서 session.loginUser 로 변경  : 김재신-->
   <div class="navigation-pill" th:if="${session.loginUser != null}">
-    <form method="post" action="/logout">
-      <button type="submit">로그아웃</button>
-    </form>
+	<a href="/logout">로그아웃</a>
   </div>
 
   <!-- 로그인/회원가입 (비로그인 시만 보임) 김재신 -->
@@ -70,8 +75,8 @@
     <a href="/signup">회원가입</a>
   </div>
 </div>
-
-      </div>
+</div>
+<!-- 상단툴바 끝 : 김재신-->
       <div class="frame2">
         <div class="hero-basic">
           <div class="text-content-title">

@@ -102,5 +102,12 @@ public class UserAccountController {
         // 회원가입 후 이동할 페이지 (예: 로그인 페이지)
         return "redirect:/";
     }
+    // 로그아웃 - 김재신 : 세션제거 후 / 로 리다이렉트
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 세션 제거
+        return "redirect:/"; // 홈으로 리다이렉트
+    }
+    
     
 }

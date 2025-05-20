@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/style.css">
   <title>구독 상태</title>
   <style>
     body {
@@ -50,6 +51,43 @@
   </style>
 </head>
 <body>
+		<!-- 상단툴바 : 김재신-->
+      <div class="navigation-pill-list">
+	<div class="navigation-pill-list2">
+		  <!-- 홈 : 로그인 여부 상관없이 항상 보임 김재신 -->
+		<div class="navigation-pill">
+  <a href="/">홈</a>
+</div>
+		
+  <!-- 플랫폼 구독 : 로그인 여부 상관없이 항상 보임 김재신 -->
+<div class="navigation-pill">
+  <a href="/ott">플랫폼 구독</a>
+</div>
+
+
+
+  <!-- 구독정보 : 로그인 상태일때만 보임. 김재신 -->
+	<div class="navigation-pill" th:if="${session.loginUser != null}">
+  	<a th:href="@{/rent/{userNo}(userNo=${session.loginUser.userNo})}">구독정보</a>
+	</div>
+
+  <!-- 로그아웃 (로그인 상태 시 보임) 김재신 -->
+    <!--bug fix : session.User 에서 session.loginUser 로 변경  : 김재신-->
+  <div class="navigation-pill" th:if="${session.loginUser != null}">
+	<a href="/logout">로그아웃</a>
+  </div>
+
+  <!-- 로그인/회원가입 (비로그인 시만 보임) 김재신 -->
+  <!--bug fix : session.User 에서 session.loginUser 로 변경  : 김재신-->
+  <div class="navigation-pill" th:if="${session.loginUser == null}">
+    <a href="/login">로그인</a>
+  </div>
+  <div class="navigation-pill" th:if="${session.loginUser == null}">
+    <a href="/signup">회원가입</a>
+  </div>
+</div>
+</div>
+<!-- 상단툴바 끝 : 김재신-->
   <h1>내 구독 현황</h1>
   <h3>현재 사용자: <span th:text="${uid}">알 수 없음</span></h3>
 
