@@ -3,6 +3,7 @@ package com.team1.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,8 +23,14 @@ public class UserAccountController {
 	
 	private final UserAccountService userAccountService;
 	
+//	
+//	@GetMapping({"/","/{userno}"})
+//	public String homePage() {
+//	    return "index"; // templates/index.html
+//	}
+//	bugfix : homepage 에서 userno를 받는 메서드가 없는문제 수정 - 김재신
 	@GetMapping({"/","/{userno}"})
-	public String homePage() {
+	public String homePage(@PathVariable(required = false) Long userno, HttpSession session) {
 	    return "index"; // templates/index.html
 	}
 	
@@ -95,5 +102,12 @@ public class UserAccountController {
         // 회원가입 후 이동할 페이지 (예: 로그인 페이지)
         return "redirect:/";
     }
+    // 로그아웃 - 김재신 : 세션제거 후 / 로 리다이렉트
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 세션 제거
+        return "redirect:/"; // 홈으로 리다이렉트
+    }
+    
     
 }
