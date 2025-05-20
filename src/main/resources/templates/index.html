@@ -35,7 +35,7 @@
        padding: 0;
    }
    </style>
-  <title>Document</title>
+  <title>OTTProject</title>
 </head>
 <body>
   <div class="examples-about">
@@ -49,22 +49,24 @@
 
 
   <!-- 구독정보 : 로그인 상태일때만 보임. 김재신 -->
-	<div class="navigation-pill" th:if="${session.user != null}">
-  	<a th:href="@{/rent/{userno}(userno=${session.user.userno})}">구독정보</a>
+	<div class="navigation-pill" th:if="${session.loginUser != null}">
+  	<a th:href="@{/rent/{userNo}(userNo=${session.loginUser.userNo})}">구독정보</a>
 	</div>
 
   <!-- 로그아웃 (로그인 상태 시 보임) 김재신 -->
-  <div class="navigation-pill" th:if="${session.user != null}">
+    <!--bug fix : session.User 에서 session.loginUser 로 변경  : 김재신-->
+  <div class="navigation-pill" th:if="${session.loginUser != null}">
     <form method="post" action="/logout">
       <button type="submit">로그아웃</button>
     </form>
   </div>
 
   <!-- 로그인/회원가입 (비로그인 시만 보임) 김재신 -->
-  <div class="navigation-pill" th:if="${session.user == null}">
+  <!--bug fix : session.User 에서 session.loginUser 로 변경  : 김재신-->
+  <div class="navigation-pill" th:if="${session.loginUser == null}">
     <a href="/login">로그인</a>
   </div>
-  <div class="navigation-pill" th:if="${session.user == null}">
+  <div class="navigation-pill" th:if="${session.loginUser == null}">
     <a href="/signup">회원가입</a>
   </div>
 </div>
