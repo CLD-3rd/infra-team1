@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/odb?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://ott-db:3306/odb?serverTimezone=Asia/Seoul
     username: ottp
     password: ottp
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,3 +15,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false

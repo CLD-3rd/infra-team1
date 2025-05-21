@@ -1,0 +1,25 @@
+<div th:fragment="footer">
+    <div class="dropdown position-fixed bottom-0 end-0 m-3 dropup" data-bs-theme="dark">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonDark"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            테마 선택
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
+            <li><a class="dropdown-item" href="#" onclick="setTheme('light'); event.preventDefault();">라이트 모드</a></li>
+            <li><a class="dropdown-item" href="#" onclick="setTheme('dark'); event.preventDefault();">다크 모드</a></li>
+            <li><a class="dropdown-item" href="#" onclick="setTheme('auto'); event.preventDefault();">자동 모드</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-bs-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        })();
+    </script>
+</div>
