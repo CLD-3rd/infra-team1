@@ -1,0 +1,48 @@
+services:
+  db:
+    container_name: ott-db
+    image: ott-db:v1.0
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: odb
+      MYSQL_USER: ottp
+      MYSQL_PASSWORD: ottp
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/sql/data.sql:/docker-entrypoint-initdb.d/data.sql
+      - ./db/conf:/etc/mysql/conf.d
+    networks:
+      - ottnet
+    healthcheck:
+      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD']
+      interval: 10s
+      timeout: 2s
+      retries: 100
+
+  backend:
+    container_name: ott-web
+    image: ott-web:v1.2
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      MYSQL_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - ottnet
+
+networks:
+  ottnet:
+    driver: bridge
+
+volumes:
+  mysql-data:
