@@ -3,7 +3,7 @@
 
 # 컨테이너 공유
 release 브랜치만 아래 명령어를 gitbash 에입력
-git clone --branch release --single-branch https://github.com/CLD-3rd/infra-team1.git
+'git clone --branch release --single-branch https://github.com/CLD-3rd/infra-team1.git'
 
 # 서버구동
 ubuntu linux 실행 후
